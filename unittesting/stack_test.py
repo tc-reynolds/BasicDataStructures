@@ -4,25 +4,40 @@ from datastructures.stack import Stack
 
 class StackTestCase(unittest.TestCase):
 
+    def setUp(self):
+        self.stack = Stack()
+
     def test_push(self):
-        stack = Stack()
-        stack.push(5)
-        stack.push(3)
-        stack.print_stack()
-        self.assertEqual(2, stack.get_size())
+        self.stack.push(5)
+        self.stack.push(3)
+
+        self.assertEqual(self.stack.get_size(), 2)
+        self.assertEqual(self.stack.pop(), 3)
 
     def test_get_size(self):
-        stack = Stack()
-        stack.push(5)
-        self.assertEqual(stack.get_size(), 1)
-        stack.push(6)
-        self.assertEqual(stack.get_size(), 2)
+        self.stack.push(5)
+
+        self.assertEqual(self.stack.get_size(), 1)
+
+        self.stack.pop()
+
+        self.assertEqual(self.stack.get_size(), 0)
+
+        self.stack.push(4)
+        self.stack.push(-1)
+
+        self.assertEqual(self.stack.get_size(), 2)
 
     def test_pop(self):
-        stack = Stack([4, 5])
-        item = stack.pop()
+        self.stack = Stack([4, 5])
+        item = self.stack.pop()
+
         self.assertEqual(item, 5)
-        self.assertEqual(stack.peak(), 4)
+        self.assertEqual(self.stack.peek(), 4)
+
+        self.stack.pop()
+
+        self.assertEqual(self.stack.pop(), False)
 
 
 if __name__ == '__main__':

@@ -1,24 +1,27 @@
 class MaxHeap:
 
-    def __init__(self, items=[]):
+    def __init__(self, items=None):
         super().__init__()
-        self.heap = [0]
-        for item in items:
-            self.heap.append(item)
-            self.__floatUp(len(self.heap) - 1)
+        if items is None:
+            self.heap = [0]
+        else:
+            self.heap = [0]
+            for item in items:
+                self.heap.append(item)
+                self.__floatUp(len(self.heap) - 1)
 
     def push(self, data):
         self.heap.append(data)
         self.__floatUp(len(self.heap) - 1)
 
     def peek(self):
-        if self.heap[1]:
+        if len(self.heap) > 1:
             return self.heap[1]
         else:
             return False
 
     def pop(self):
-        if len(self.heap) > 2:
+        if len(self.heap) > 1:
             self.__swap(1, len(self.heap) - 1)
             max = self.heap.pop()
             self.__bubbleDown(1)
@@ -28,6 +31,8 @@ class MaxHeap:
             max = False
         return max
 
+    def get_heap(self):
+        return self.heap
 
     def print_heap(self):
         print(self.heap[1:])

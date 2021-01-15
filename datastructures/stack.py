@@ -1,13 +1,20 @@
 class Stack:
-    def __init__(self, data=[]):
-        self.data = data
+
+    def __init__(self, data=None):
+        if data is None:
+            self.data = []
+        else:
+            self.data = data
 
     def pop(self):
-        top = self.data[len(self.data) - 1]
-        del self.data[len(self.data) - 1]
-        return top
+        if len(self.data) > 0:
+            top = self.data[len(self.data) - 1]
+            del self.data[len(self.data) - 1]
+            return top
+        else:
+            return False
 
-    def peak(self):
+    def peek(self):
         return self.data[len(self.data) - 1]
 
     def push(self, item):
