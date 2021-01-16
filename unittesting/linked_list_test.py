@@ -44,7 +44,5 @@ class LinkedListTestCases(unittest.TestCase):
         self.assertEqual(self.ll.find(4).data, 4)
 
 
-
-
 if __name__ == '__main__':
     unittest.main()
