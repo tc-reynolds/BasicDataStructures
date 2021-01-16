@@ -13,26 +13,25 @@ class LinkedList:
 
     def __init__(self, r=None):
         self.size = 0
-        self.root = r
+        self.root = None
         #If User inits with list, this will convert it to a linked list
         if isinstance(r, list):
            self.read_list_into_ll(r)
         elif r is not None:
             self.root = r
-            ++self.size
+            self.size += 1
         else:
             self.root = r
 
     def read_list_into_ll(self, ls):
-        #Handles if Linked List already exists
-        if isinstance(self.root, Node) is False:
+        if self.root is None or isinstance(self.root, Node) is False:
             self.root = Node(ls[0])
-            self.size = 1
-        if len(ls) > 1:
-            for data in ls[1:]:
-                node = Node(data)
-                self.add(node)
-                ++self.size
+            self.size += 1
+            del ls[0]
+        #Handles if Linked List already exists
+        for data in ls:
+            self.add(data)
+
     def add(self, data):
         new_node = Node(data, self.root)
         self.root = new_node
@@ -45,7 +44,7 @@ class LinkedList:
             if this_node.data == data:
                 if prev_node is not None:
                     prev_node.next_node = this_node.next_node
-                    --self.size
+                    self.size -= 1
                     return True
                 else:
                     self.root = this_node.next_node
@@ -61,6 +60,7 @@ class LinkedList:
                 return this_node
             else:
                 this_node = this_node.next_node
+        return False
 
     def get_list_data(self):
         ll_data = []
@@ -79,4 +79,3 @@ class LinkedList:
             print(this_node, end='->')
             this_node = this_node.next_node
         print("None")
-
