@@ -58,38 +58,43 @@ class BST:
         elif self.left is None and self.right is None:
             return 1
 
-    def min_value_node(self, parent):
-        if self.left is None:
-            return [self, parent]
+    def min_value_node(self, root):
+        if root.left is None:
+            return root
         else:
-            return self.left.min_value_node(self)
+            return self.left.min_value_node(root.left)
 
     def delete(self, root, key):
         if root is None:
             return root
         elif root.data < key:
-            root.right = root.delete(root.right, key)
+            root.right = self.delete(root.right, key)
         elif root.data > key:
-            root.left = root.delete(root.left, key)
+            root.left = self.delete(root.left, key)
         else:
             # Case 1, No Child
             if root.right is None and root.left is None:
                 if root.data == key:
-                    root.data = None
+                    root = None
+                    return root
             # Case 2, One Child
-            elif self.left is None and self.right is not None:
-                root = self.right
-            elif self.left is not None and self.right is None:
-                root = self.left
+            elif root.left is None:
+                tmp = root.right
+                root = None
+                return tmp
+            elif root.right is None:
+                tmp = root.left
+                root = None
+                return tmp
             else:
-                next_highest, parent = self.right.min_value_node(root.right)
+                next_highest = self.min_value_node(root.right)
                 root.data = next_highest.data
-                root.right = self.delete(parent.right, next_highest.data)
+                root.right = self.delete(root.right, next_highest.data)
         return root
 
     def in_order_traversal(self, root):
         res = []
-        if root:
+        if root is not None:
             res = self.in_order_traversal(root.left)
             res.append(root.data)
             res = res + self.in_order_traversal(root.right)

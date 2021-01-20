@@ -27,13 +27,41 @@ class BSTTestCases(unittest.TestCase):
         self.assertEqual(self.tree.find(1231), False)
 
     def test_delete(self):
-        # self.tree.insert_list([10, 12, 3, 0, 4])
+        # Delete root
         self.assertEqual(self.tree.find(5), 5)
+        self.tree.delete(self.tree, 5)
+        self.assertEqual(self.tree.find(5), 5)
+
+        # Delete left child leaf
+        self.tree.insert(5)
+        self.assertEqual(self.tree.find(5), 5)
+        self.tree.insert(4)
+        self.assertEqual(self.tree.find(4), 4)
+        self.tree.delete(self.tree, 4)
+        self.assertEqual(self.tree.find(4), False)
+
+        #  Delete right child leaf
+        self.tree.insert(5)
+        self.tree.insert(6)
+        self.assertEqual(self.tree.find(6), 6)
+        self.tree.delete(self.tree, 6)
+        self.assertEqual(self.tree.find(6), False)
+
+        # Delete Node with one child
+        self.tree.insert(6)
+        self.tree.insert(7)
+        self.assertEqual(self.tree.find(6), 6)
+        self.tree.delete(self.tree, 6)
+        self.assertEqual(self.tree.find(6), False)
+
+        # Delete Node with 2 Children
+        self.tree.insert(4)
+        self.tree.insert(6)
+        self.tree.insert(8)
         self.tree.delete(self.tree, 5)
         self.assertEqual(self.tree.find(5), False)
 
-        self.tree.insert(5)
-        self.assertEqual(self.tree.find(5), 5)
+
 
 
     def test_in_order_traversal(self):
@@ -62,17 +90,17 @@ class BSTTestCases(unittest.TestCase):
         self.assertEqual(self.tree.get_size(), 5)
 
     def test_min_value_node(self):
-        self.assertEqual(self.tree.min_value_node(self.tree)[0].data, 5)
+        self.assertEqual(self.tree.min_value_node(self.tree).data, 5)
 
         self.tree.insert(3)
-        self.assertEqual(self.tree.min_value_node(self.tree)[0].data, 3)
+        self.assertEqual(self.tree.min_value_node(self.tree).data, 3)
 
         self.tree.insert(-12)
         self.tree.insert(-4)
         self.tree.insert(0)
         self.tree.insert(101)
         self.tree.insert(-10)
-        self.assertEqual(self.tree.min_value_node(self.tree)[0].data, -12)
+        self.assertEqual(self.tree.min_value_node(self.tree).data, -12)
 
 
 
